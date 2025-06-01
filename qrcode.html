@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QR Code for Dashboard</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Use a reliable CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,6 +17,7 @@
       padding: 20px;
       height: 100vh;
       text-align: center;
+      margin: 0;
     }
     h1 {
       color: #333;
@@ -49,21 +51,22 @@
     const qrText = "https://david2025-kh.github.io/Air-Quality-Dashboard/";
     let qrCode;
 
-    window.onload = () => {
-      qrCode = new QRCode(document.getElementById("qrcode"), {
-        text: qrText,
-        width: 256,
-        height: 256,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    };
+    // Use DOMContentLoaded event and a small delay to ensure script is fully ready
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        qrCode = new QRCode(document.getElementById("qrcode"), {
+          text: qrText,
+          width: 256,
+          height: 256,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }, 100);
+    });
 
     function downloadQRCode() {
-      // Get the <img> inside the QR container
       const qrImg = document.querySelector("#qrcode img");
-
       if (qrImg) {
         const link = document.createElement("a");
         link.href = qrImg.src;

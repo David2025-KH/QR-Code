@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code for Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    #qrcode {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scan to Open Dashboard</h1>
+  <div id="qrcode"></div>
+  <button onclick="downloadQRCode()">Download QR Code</button>
+
+  <script>
+    const qrText = "https://david2025-kh.github.io/Air-Quality-Dashboard/";
+    let qrCode;
+
+    window.onload = () => {
+      qrCode = new QRCode(document.getElementById("qrcode"), {
+        text: qrText,
+        width: 256,
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    };
+
+    function downloadQRCode() {
+      // Get the <img> inside the QR container
+      const qrImg = document.querySelector("#qrcode img");
+
+      if (qrImg) {
+        const link = document.createElement("a");
+        link.href = qrImg.src;
+        link.download = "dashboard_qr_code.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        alert("QR code not generated yet.");
+      }
+    }
+  </script>
+</body>
+</html>

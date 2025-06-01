@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QR Code for Dashboard</title>
-  <!-- ✅ Use a reliable QRCode.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,25 +45,19 @@
   <div id="qrcode"></div>
   <button onclick="downloadQRCode()">Download QR Code</button>
 
+  <!-- ✅ Place QRCode.js BEFORE your script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    // ✅ Wait until the DOM is ready
-    document.addEventListener("DOMContentLoaded", () => {
-      const qrText = "https://david2025-kh.github.io/Air-Quality-Dashboard/";
-      const qrContainer = document.getElementById("qrcode");
+    const qrText = "https://david2025-kh.github.io/Air-Quality-Dashboard/";
+    const qrContainer = document.getElementById("qrcode");
 
-      try {
-        new QRCode(qrContainer, {
-          text: qrText,
-          width: 256,
-          height: 256,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      } catch (error) {
-        console.error("QR Code generation failed:", error);
-        qrContainer.innerHTML = "<p style='color: red;'>Failed to load QR code.</p>";
-      }
+    new QRCode(qrContainer, {
+      text: qrText,
+      width: 256,
+      height: 256,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
     });
 
     function downloadQRCode() {
